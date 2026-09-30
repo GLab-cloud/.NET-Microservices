@@ -1,1 +1,3 @@
-GET http://localhost:5082/
+GET http://fluffy-memory-5rg95967pjg2v9p6-5082.app.github.dev
+###
+GET http://localhost:5082/games
