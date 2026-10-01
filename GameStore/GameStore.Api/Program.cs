@@ -28,4 +28,26 @@ app.MapPost("/games", (CreateGameDto newGame) => {
 
 });
 
+
+// PUT /games/1
+app.MapPut("/games/{id}", (int id, UpdateGameDto updatedGame) => {
+    var index = games.FindIndex(game => game.Id == id);
+    if (index == -1)
+    {
+        //Console.WriteLine($"Game with ID {id} not found.");
+        return Results.NotFound();
+    }   
+    games[index] = new GameDto(id, updatedGame.Name, updatedGame.Genre, updatedGame.Price, updatedGame.ReleaseDate);
+    return Results.NoContent(); 
+});
+// DELETE /games/1
+app.MapDelete("/games/{id}", (int id) => {
+    var index = games.FindIndex(game => game.Id == id);
+    if (index == -1)
+    {
+        return Results.NotFound();
+    }
+    games.RemoveAt(index);
+    return Results.NoContent();
+}); 
 app.Run();

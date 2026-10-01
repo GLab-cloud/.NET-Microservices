@@ -9,9 +9,20 @@ POST http://localhost:5082/games
 Content-Type: application/json
 
 {
-  "name": "Super Mario Odyssey",
-  "genre": "Platfomer",
+  "name": "Super Mario Bros. Wonder",
+  "genre": "Platformer",
   "price": 19.99,
   "releaseDate": "2026-10-01"
 }
+### 
+PUT http://localhost:5082/games/7
+Content-Type: application/json  
 
+{
+  "name": "Super Mario Bros. Wonder 1",
+  "genre": "Platformer",
+  "price": 20.00,
+  "releaseDate": "2026-10-02"
+}
+###
+DELETE http://localhost:5082/games/7
