@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace GameStore.Api.Dtos;
 public record CreateGameDto(
-    [Required] string Name,
-    [Required] string Genre,
-    [Required] decimal Price,
-    [Required] DateOnly ReleaseDate);
+    [property: Required] string Name,
+    [property: Required] string Genre,
+    [property: Required] decimal Price,
+    [property: Required] DateOnly ReleaseDate);
