@@ -28,6 +28,10 @@ public static class GamesEndpoint
 
         // POST /games
         group.MapPost("/", (CreateGameDto newGame) => {
+            if(string.IsNullOrEmpty(newGame.Name) || string.IsNullOrEmpty(newGame.Genre) || newGame.Price <= 0)
+            {
+                return Results.BadRequest("Invalid game data.");
+            }
             GameDto game = new (
                 games.Count + 1,
                 newGame.Name,
