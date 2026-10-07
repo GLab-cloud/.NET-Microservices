@@ -10,10 +10,11 @@ builder.Services.AddSqlite<GameStoreContext>(connString);
 
 var app = builder.Build();
 
+
 app.UseSwagger();
 app.UseSwaggerUI();
 
 app.MapGet("/", () => "Welcome to the Game Store API!");
 app.MapGamesEndpoints();
-
+app.MigrateDb();
 app.Run();
