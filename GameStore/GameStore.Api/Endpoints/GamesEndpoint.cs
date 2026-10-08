@@ -1,4 +1,6 @@
+using GameStore.Api.Data;
 using GameStore.Api.Dtos;
+using GameStore.Api.Models;
 
 namespace GameStore.Api.Endpoints;  
 public static class GamesEndpoint
@@ -27,19 +29,27 @@ public static class GamesEndpoint
         .WithName(GetGameEndpointName);
 
         // POST /games
-        group.MapPost("/", (CreateGameDto newGame) => {
-            if(string.IsNullOrEmpty(newGame.Name) || string.IsNullOrEmpty(newGame.Genre) || newGame.Price <= 0)
-            {
-                return Results.BadRequest("Invalid game data.");
-            }
-            GameDto game = new (
-                games.Count + 1,
-                newGame.Name,
-                newGame.Genre,
-                newGame.Price,
-                newGame.ReleaseDate);
-            games.Add(game);
-            return Results.CreatedAtRoute(GetGameEndpointName, new { id = game.Id }, game);
+        group.MapPost("/", (CreateGameDto newGame,GameStoreContext DbContext) => {
+            // if(string.IsNullOrEmpty(newGame.Name) || string.IsNullOrEmpty(newGame.Genre) || newGame.Price <= 0)
+            // {
+            //     return Results.BadRequest("Invalid game data.");
+            // }
+            // GameDto game = new (
+            //     games.Count + 1,
+            //     newGame.Name,
+            //     newGame.Genre,
+            //     newGame.Price,
+            //     newGame.ReleaseDate);
+            Game game = new (){
+                Name=newGame.Name,
+                GenreId=newGame.GenreId,
+                Price=newGame.Price,
+                ReleaseDate=newGame.ReleaseDate
+                };
+            DbContext.Games.Add(game);
+            DbContext.SaveChanges();
+            GameDetailsDto gameDetailsDto=new GameDetailsDto(game.Id,game.Name,game.GenreId,game.Price,game.ReleaseDate);
+            return Results.CreatedAtRoute(GetGameEndpointName, new { id = gameDetailsDto.Id }, gameDetailsDto );
         });
 
         // PUT /games/1
