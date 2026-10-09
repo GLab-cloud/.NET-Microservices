@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 
 namespace GameStore.Api.Dtos;
-public record GameDto(
+public record GameSummaryDto(
     [property: Required] int Id,
     [property: Required][StringLength(50)] string Name,
     [property: Required][StringLength(20)]  string Genre,
