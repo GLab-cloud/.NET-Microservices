@@ -87,7 +87,7 @@ public static class GamesEndpoint
             {
                 return Results.NotFound();
             }
-            DbContext.Games.Remove(game);
+            await DbContext.Games.Where(g => g.Id == id).ExecuteDeleteAsync();
             await DbContext.SaveChangesAsync().ContinueWith(task => {
                 if (task.IsFaulted)
                 {   // Handle the exception here
