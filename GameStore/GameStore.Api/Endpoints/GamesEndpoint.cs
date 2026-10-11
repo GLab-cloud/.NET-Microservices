@@ -8,13 +8,13 @@ public static class GamesEndpoint
 {          
     const string GetGameEndpointName = "GetGameById";
 
-    private static List<GameSummaryDto> games = new List<GameSummaryDto>
-        {
-            new GameSummaryDto(1, "Game 1", "Action", 59.99m, new DateOnly(2023, 1, 1)),
-            new GameSummaryDto(2, "Game 2", "Adventure", 39.99m, new DateOnly(2023, 2, 1)),
-            new GameSummaryDto(3, "Game 3", "RPG", 49.99m, new DateOnly(2023, 3, 1)),
-            new GameSummaryDto(4, "Game 4", "Strategy", 29.99m, new DateOnly(2023, 4, 1))
-        };
+    // private static List<GameSummaryDto> games = new List<GameSummaryDto>
+    //     {
+    //         new GameSummaryDto(1, "Game 1", "Action", 59.99m, new DateOnly(2023, 1, 1)),
+    //         new GameSummaryDto(2, "Game 2", "Adventure", 39.99m, new DateOnly(2023, 2, 1)),
+    //         new GameSummaryDto(3, "Game 3", "RPG", 49.99m, new DateOnly(2023, 3, 1)),
+    //         new GameSummaryDto(4, "Game 4", "Strategy", 29.99m, new DateOnly(2023, 4, 1))
+    //     };
     public static void MapGamesEndpoints(this WebApplication app)
     {
         var group = app.MapGroup("/games").WithTags("Games");

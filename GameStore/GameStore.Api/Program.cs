@@ -15,5 +15,6 @@ app.UseSwaggerUI();
 
 app.MapGet("/", () => "Welcome to the Game Store API!");
 app.MapGamesEndpoints();
+app.MapGenresEndpoints();
 app.MigrateDb();
 app.Run();
