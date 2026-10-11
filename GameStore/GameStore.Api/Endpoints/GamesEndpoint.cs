@@ -48,30 +48,53 @@ public static class GamesEndpoint
                 ReleaseDate=newGame.ReleaseDate
                 };
             DbContext.Games.Add(game);
-            await DbContext.SaveChangesAsync();
+            await DbContext.SaveChangesAsync().ContinueWith(task => {
+                if (task.IsFaulted)
+                {   // Handle the exception here
+                    Console.WriteLine($"Error saving changes: {task.Exception?.Message}");
+                }
+                //continue with the rest of the code after saving changes logic
+            });
             GameDetailsDto gameDetailsDto=new GameDetailsDto(game.Id,game.Name,game.GenreId,game.Price,game.ReleaseDate);
             return Results.CreatedAtRoute(GetGameEndpointName, new { id = gameDetailsDto.Id }, gameDetailsDto );
         });
 
         // PUT /games/1
-        group.MapPut("/{id}", (int id, UpdateGameDto updatedGame) => {
-            var index = games.FindIndex(game => game.Id == id);
-            if (index == -1)
+        group.MapPut("/{id}", async (int id, UpdateGameDto updatedGame,GameStoreContext DbContext) => {
+            var game = await DbContext.Games.FindAsync(id);
+            if (game is null)
             {
                 return Results.NotFound();
             }
-            games[index] = new GameSummaryDto(id, updatedGame.Name, updatedGame.Genre, updatedGame.Price, updatedGame.ReleaseDate);
+            game.Name = updatedGame.Name;
+            game.GenreId = updatedGame.GenreId;
+            game.Price = updatedGame.Price;
+            game.ReleaseDate = updatedGame.ReleaseDate;
+            await DbContext.SaveChangesAsync().ContinueWith(task => {
+                if (task.IsFaulted)
+                {   // Handle the exception here
+                    Console.WriteLine($"Error saving changes: {task.Exception?.Message}");
+                }
+                //continue with the rest of the code after saving changes logic
+            });
             return Results.NoContent();
         });
 
         // DELETE /games/1
-        group.MapDelete("/{id}", (int id) => {
-            var index = games.FindIndex(game => game.Id == id);
-            if (index == -1)
+        group.MapDelete("/{id}", async (int id,GameStoreContext DbContext) => {
+            var game = await DbContext.Games.FindAsync(id);
+            if (game is null)
             {
                 return Results.NotFound();
             }
-            games.RemoveAt(index);
+            DbContext.Games.Remove(game);
+            await DbContext.SaveChangesAsync().ContinueWith(task => {
+                if (task.IsFaulted)
+                {   // Handle the exception here
+                    Console.WriteLine($"Error saving changes: {task.Exception?.Message}");
+                }
+                //continue with the rest of the code after saving changes logic
+            })  ;
             return Results.NoContent();
         });
     }
