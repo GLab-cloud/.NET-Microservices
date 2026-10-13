@@ -7,7 +7,7 @@ export default defineConfig({
     server: {
         proxy: {
             '/api': {
-                target: 'http://localhost:5159',
+                target: 'https://fluffy-memory-5rg95967pjg2v9p6-5082.app.github.dev/',
                 rewrite: (path) => path.replace(/^\/api/, ''),
                 changeOrigin: true,
                 secure: false
