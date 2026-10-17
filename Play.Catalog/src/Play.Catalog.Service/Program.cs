@@ -43,7 +43,7 @@ app.MapGet("/weatherforecast", () =>
     return forecast;
 })
 .WithName("GetWeatherForecast");
-
+app.MapGet("/", () => "Hello world .NET Microservices!");
 app.Run();
 
 record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
