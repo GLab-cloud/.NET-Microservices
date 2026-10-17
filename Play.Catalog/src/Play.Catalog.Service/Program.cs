@@ -1,18 +1,28 @@
+using Microsoft.OpenApi; 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddOpenApi(options =>
+{
+    options.OpenApiVersion = OpenApiSpecVersion.OpenApi3_0;
+});
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
-{
+{{
+    // endpoint /openapi/v1.json
+    app.MapOpenApi(); 
+    
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+}
+app.MapGet("/api/weather", () => new { Temperature = Random.Shared.Next(-20, 55) })
+        .WithName("GetWeather");
 app.UseHttpsRedirection();
 
 var summaries = new[]
