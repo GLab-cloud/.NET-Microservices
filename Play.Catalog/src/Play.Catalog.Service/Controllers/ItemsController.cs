@@ -49,9 +49,9 @@ namespace Play.Catalog.Service.Controllers
             }
             var updatedItem = existingItem with
             {
-                Name = updateItemDto.Name,
-                Description = updateItemDto.Description,
-                Price = updateItemDto.Price
+                Name = updateItemDto?.Name ?? existingItem.Name,
+                Description = updateItemDto?.Description??existingItem.Description,
+                Price = updateItemDto?.Price ?? existingItem.Price
             };
             var index = items.FindIndex(item => item.Id == id);
             items[index] = updatedItem;
