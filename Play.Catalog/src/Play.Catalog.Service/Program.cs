@@ -9,6 +9,9 @@ builder.Services.AddOpenApi(options =>
     options.OpenApiVersion = OpenApiSpecVersion.OpenApi3_0;
 });
 
+builder.Services.AddControllers();
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -21,6 +24,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 }
+app.MapControllers();
 app.MapGet("/api/weather", () => new { Temperature = Random.Shared.Next(-20, 55) })
         .WithName("GetWeather");
 app.UseHttpsRedirection();
