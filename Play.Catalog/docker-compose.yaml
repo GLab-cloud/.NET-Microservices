@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo
+    container_name: mongo
+    network_mode: host
+    volumes:
+      - ./.mongodata:/data/db
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-ui
+    network_mode: host
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=127.0.0.1
+      - ME_CONFIG_BASICAUTH=false
+    depends_on:
+      - mongo
+
+volumes:
+  mongodbdata:

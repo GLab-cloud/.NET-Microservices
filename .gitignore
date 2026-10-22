@@ -57,3 +57,6 @@ TestResult.xml
 nunit-*.xml
 # React_NodeJS
 node_modules/
+# MongoDB data directory
+Play.Catalog/.mongodata/
+
