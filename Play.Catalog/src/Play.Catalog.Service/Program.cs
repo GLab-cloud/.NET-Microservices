@@ -9,8 +9,10 @@ builder.Services.AddOpenApi(options =>
     options.OpenApiVersion = OpenApiSpecVersion.OpenApi3_0;
 });
 
-builder.Services.AddControllers();
-
+builder.Services.AddControllers(options =>
+{
+    options.SuppressAsyncSuffixInActionNames = false;
+});
 
 var app = builder.Build();
 
