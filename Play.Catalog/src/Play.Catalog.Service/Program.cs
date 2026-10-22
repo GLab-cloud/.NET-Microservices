@@ -1,4 +1,8 @@
-using Microsoft.OpenApi; 
+using Microsoft.OpenApi;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers; 
+BsonSerializer.RegisterSerializer(new GuidSerializer(BsonType.String));
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
