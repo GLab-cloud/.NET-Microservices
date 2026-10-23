@@ -6,4 +6,7 @@ docker compose ps
 docker compose down && docker compose up -d --force-recreate
 docker logs mongo-ui
 docker exec -it mongo mongosh -> use Catalog => db.items.find()
+# MongoDB ext
+use('Catalog');
+db.items.find().pretty();
 
