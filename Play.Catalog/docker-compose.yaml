@@ -12,7 +12,7 @@ services:
     container_name: mongo-ui
     network_mode: host
     environment:
-      - ME_CONFIG_MONGODB_SERVER=127.0.0.1
+      - ME_CONFIG_MONGODB_URL=mongodb://127.0.0.1:27017
       - ME_CONFIG_BASICAUTH=false
     depends_on:
       - mongo
